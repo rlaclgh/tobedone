@@ -17,7 +17,8 @@ const USER_SEEDS: User[] = [
   {
     id: '6cd6a91e-a9f0-472a-a60f-80a7dc91aec2',
     email: 'seed1@gmail.com',
-    password: 'password',
+    // "password" 란 문자
+    password: '$2b$10$PFEJJsZntPHbTu7/c9rkve4c97Capv5nO2wqDVoycFTdMvgymCCHe',
     noticeInterval: 24,
     noticeCount: 5,
     createdAt: new Date(),

@@ -50,4 +50,52 @@ describe('AuthController (e2e)', () => {
     expect(response.body.message).toBe('이미 가입한 유저입니다.');
     expect(response.body.data).toBe(null);
   });
+
+  it('/sign-in (POST) can login with valid email and password', async () => {
+    const payload = {
+      email: 'seed1@gmail.com',
+      password: 'password',
+    };
+
+    const response = await request(app.getHttpServer())
+      .post('/auth/sign-in')
+      .send(payload);
+
+    expect(response.status).toBe(HttpStatus.OK);
+    expect(response.body.code).toBe('SUCCESS');
+    expect(response.body.message).toBe('로그인을 완료했습니다.');
+    expect(response.body.data.accessToken).toBeDefined();
+  });
+
+  it('/sign-in (POST) can not login with valid email and wrong password', async () => {
+    const payload = {
+      email: 'seed1@gmail.com',
+      password: 'wrong_password',
+    };
+
+    const response = await request(app.getHttpServer())
+      .post('/auth/sign-in')
+      .send(payload);
+
+    expect(response.status).toBe(HttpStatus.FORBIDDEN);
+    expect(response.body.code).toBe('FAIL');
+    expect(response.body.message).toBe('로그인 정보를 확인해주세요.');
+    expect(response.body.data).toBe(null);
+  });
+
+  it('/sign-in (POST) can not login with wrong email', async () => {
+    const payload = {
+      email: 'wrong_seed1@gmail.com',
+      password: 'password',
+    };
+
+    const response = await request(app.getHttpServer())
+      .post('/auth/sign-in')
+      .send(payload);
+
+    expect(response.status).toBe(HttpStatus.NOT_FOUND);
+    expect(response.body.code).toBe('FAIL');
+    expect(response.body.message).toBe('로그인 정보를 확인해주세요.');
+    expect(response.body.data).toBe(null);
+  });
 });

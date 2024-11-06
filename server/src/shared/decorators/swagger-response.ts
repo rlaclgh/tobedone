@@ -27,6 +27,8 @@ export const SwaggerResponse = <DataDto extends Type<unknown>>(
       }
     : null;
 
+  const isSuccess = statusCode >= 200 && statusCode < 300;
+
   return applyDecorators(
     ApiExtraModels(BaseResponseDto, dataDto),
     ApiResponse({
@@ -39,7 +41,11 @@ export const SwaggerResponse = <DataDto extends Type<unknown>>(
           },
           {
             properties: {
-              code: { type: 'string', nullable: false, example: 'SUCCESS' },
+              code: {
+                type: 'string',
+                nullable: false,
+                example: isSuccess ? 'SUCCESS' : 'FAIL',
+              },
               ...messageProperty,
             },
           },

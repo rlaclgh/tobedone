@@ -18,7 +18,7 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "npx prisma migrate reset --force && npm run seed && jest --config ./test/jest-e2e.json",
-    "seed": "ts-node prisma/seed.ts", 
+    "seed": "ts-node prisma/seed.ts",
     "migrate": "dotenv -e .env.development npx prisma migrate dev",
     "generate": "npx prisma generate"
   },
@@ -34,6 +34,7 @@
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.1",
     "dotenv": "^16.4.5",
+    "jsonwebtoken": "^9.0.2",
     "prisma": "^5.22.0",
     "reflect-metadata": "^0.2.0",
     "rxjs": "^7.8.1"
@@ -69,7 +70,9 @@
     ],
     "rootDir": "src",
     "testRegex": ".*\\.spec\\.ts$",
-    "setupFiles": ["<rootDir>/jest.setup.ts"],
+    "setupFiles": [
+      "<rootDir>/jest.setup.ts"
+    ],
     "transform": {
       "^.+\\.(t|j)s$": "ts-jest"
     },
