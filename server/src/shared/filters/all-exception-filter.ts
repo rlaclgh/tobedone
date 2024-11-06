@@ -9,6 +9,7 @@ import {
 @Catch()
 export class AllExceptionsFilter implements ExceptionFilter {
   catch(exception: unknown, host: ArgumentsHost) {
+    console.log('🚀 ~ AllExceptionsFilter ~ exception:', exception);
     const ctx = host.switchToHttp();
     const response = ctx.getResponse();
     // 직접 제어한 에러라면
