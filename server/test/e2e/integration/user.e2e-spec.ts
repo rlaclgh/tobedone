@@ -5,7 +5,7 @@ import { AppModule } from '../../../src/app.module';
 import { UpdateNoticeRequestDto } from '../../../src/shared/dtos/requests/update-notice.request.dto';
 import { getAccessToken } from '../helpers/auth-helper';
 
-describe('AuthController (e2e)', () => {
+describe('UserController (e2e)', () => {
   let app: INestApplication;
   let accessToken: string;
 
