@@ -38,9 +38,10 @@ export class TodoService {
   ): Promise<BaseResponseDto<GetTodosResponseDto>> {
     const user = await this.queryBus.execute(new GetUserByIdQuery(userId));
 
-    const todos = await this.queryBus.execute(
-      new GetTodosQuery(userId, user.noticeCount, user.noticeInterval),
-    );
+    const todos = await this.queryBus.execute<
+      GetUserByIdQuery,
+      GetTodosResponseDto
+    >(new GetTodosQuery(userId, user.noticeCount, user.noticeInterval));
     return {
       code: 'SUCCESS',
       message: '할일을 불러왔습니다.',

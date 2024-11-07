@@ -32,7 +32,7 @@ export class TodoController {
   @ApiBearerAuth('authorization')
   @SwaggerResponse(CreateTodoResponseDto, {
     statusCode: HttpStatus.CREATED,
-    description: 'Todo 생성완료',
+    description: 'Todo 생성',
     message: '할일을 생성했습니다.',
   })
   createTodo(
@@ -48,6 +48,11 @@ export class TodoController {
   @ApiOperation({
     summary: 'Todo 를 불러오는 API',
     description: 'Todo 를 불러오는 API',
+  })
+  @SwaggerResponse(GetTodosResponseDto, {
+    statusCode: HttpStatus.OK,
+    description: 'Todo 리스트 불러오기',
+    message: '할일을 불러왔습니다.',
   })
   getTodos(
     @Req() req: RequestWithUserId,
