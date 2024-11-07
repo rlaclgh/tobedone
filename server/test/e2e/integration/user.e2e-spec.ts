@@ -4,6 +4,7 @@ import * as request from 'supertest';
 import { AppModule } from '../../../src/app.module';
 import { UpdateNoticeRequestDto } from '../../../src/shared/dtos/requests/update-notice.request.dto';
 import { getAccessToken } from '../helpers/auth-helper';
+import { USER_EMAIL1, USER_PASSWORD1 } from '../../../prisma/constants';
 
 describe('UserController (e2e)', () => {
   let app: INestApplication;
@@ -17,7 +18,7 @@ describe('UserController (e2e)', () => {
     app = moduleFixture.createNestApplication();
     await app.init();
 
-    accessToken = await getAccessToken(app, 'seed1@gmail.com', 'password');
+    accessToken = await getAccessToken(app, USER_EMAIL1, USER_PASSWORD1);
   });
 
   afterAll(async () => {

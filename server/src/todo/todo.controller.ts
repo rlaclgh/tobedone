@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Get,
   HttpCode,
   HttpStatus,
   Post,
@@ -14,6 +15,7 @@ import { CreateTodoRequestDto } from '../shared/dtos/requests/create-todo.reques
 import { BaseResponseDto } from '../shared/dtos/responses/base.response.dto';
 import { CreateTodoResponseDto } from '../shared/dtos/responses/create-todo.response.dto';
 import { SwaggerResponse } from '../shared/decorators/swagger-response';
+import { GetTodosResponseDto } from '../shared/dtos/responses/get-todos.response.dto';
 
 @ApiTags('todo')
 @Controller('todo')
@@ -38,5 +40,18 @@ export class TodoController {
     @Body() createTodoRequestDto: CreateTodoRequestDto,
   ): Promise<BaseResponseDto<CreateTodoResponseDto>> {
     return this.todoService.createTodo(req.userId, createTodoRequestDto);
+  }
+
+  @Get()
+  @HttpCode(HttpStatus.OK)
+  @UseGuards(AuthGuard)
+  @ApiOperation({
+    summary: 'Todo 를 불러오는 API',
+    description: 'Todo 를 불러오는 API',
+  })
+  getTodos(
+    @Req() req: RequestWithUserId,
+  ): Promise<BaseResponseDto<GetTodosResponseDto>> {
+    return this.todoService.getTodos(req.userId);
   }
 }
