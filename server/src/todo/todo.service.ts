@@ -8,6 +8,8 @@ import { CreateTodoResponseDto } from '../shared/dtos/responses/create-todo.resp
 import { GetTodosQuery } from './cqrs/queries/get-todos.query';
 import { GetTodosResponseDto } from '../shared/dtos/responses/get-todos.response.dto';
 import { GetUserByIdQuery } from '../shared/cqrs/queries/get-user-by-id.query';
+import { EmptyResponseDto } from '../shared/dtos/responses/empty.response.dto';
+import { InvalidateTodosCommand } from './cqrs/commands/invalidate-todos.command';
 
 @Injectable()
 export class TodoService {
@@ -46,6 +48,19 @@ export class TodoService {
       code: 'SUCCESS',
       message: '할일을 불러왔습니다.',
       data: todos,
+    };
+  }
+
+  async invalidateTodos(
+    userId: string,
+  ): Promise<BaseResponseDto<EmptyResponseDto>> {
+    await this.commandBus.execute<InvalidateTodosCommand, null>(
+      new InvalidateTodosCommand(userId),
+    );
+    return {
+      code: 'SUCCESS',
+      message: 'Todo Cache를 삭제했습니다.',
+      data: null,
     };
   }
 }

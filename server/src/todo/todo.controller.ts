@@ -16,6 +16,7 @@ import { BaseResponseDto } from '../shared/dtos/responses/base.response.dto';
 import { CreateTodoResponseDto } from '../shared/dtos/responses/create-todo.response.dto';
 import { SwaggerResponse } from '../shared/decorators/swagger-response';
 import { GetTodosResponseDto } from '../shared/dtos/responses/get-todos.response.dto';
+import { EmptyResponseDto } from '../shared/dtos/responses/empty.response.dto';
 
 @ApiTags('todo')
 @Controller('todo')
@@ -58,5 +59,24 @@ export class TodoController {
     @Req() req: RequestWithUserId,
   ): Promise<BaseResponseDto<GetTodosResponseDto>> {
     return this.todoService.getTodos(req.userId);
+  }
+
+  @Post('/invalidate')
+  @HttpCode(HttpStatus.OK)
+  @UseGuards(AuthGuard)
+  @ApiOperation({
+    summary: 'Todo 의 cache를 삭제하는 API',
+    description: 'Todo 의 cache를 삭제하는 API',
+  })
+  @ApiBearerAuth('authorization')
+  @SwaggerResponse(EmptyResponseDto, {
+    statusCode: HttpStatus.OK,
+    description: 'Todo 의 cache를 삭제',
+    message: 'Todo Cache를 삭제했습니다.',
+  })
+  invalidateTodos(
+    @Req() req: RequestWithUserId,
+  ): Promise<BaseResponseDto<EmptyResponseDto>> {
+    return this.todoService.invalidateTodos(req.userId);
   }
 }

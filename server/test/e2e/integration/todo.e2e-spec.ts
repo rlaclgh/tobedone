@@ -71,4 +71,30 @@ describe('TodoController (e2e)', () => {
 
     expect(response.body.data.expireAt).toBe(response2.body.data.expireAt);
   });
+
+  it('/todo/invalidate (POST) can invalidate todos', async () => {
+    // 1. get todos 호출
+    const getResponse = await request(app.getHttpServer())
+      .get('/todo')
+      .set('Authorization', `Bearer ${accessToken}`);
+
+    // 2. invalidate todos 호출
+    const invalidateResponse = await request(app.getHttpServer())
+      .post('/todo/invalidate')
+      .set('Authorization', `Bearer ${accessToken}`);
+
+    expect(invalidateResponse.status).toBe(HttpStatus.OK);
+    expect(invalidateResponse.body.code).toBe('SUCCESS');
+    expect(invalidateResponse.body.message).toBe('Todo Cache를 삭제했습니다.');
+    expect(invalidateResponse.body.data).toBe(null);
+
+    // 3. get todos 다시 호출
+    const getResponse2 = await request(app.getHttpServer())
+      .get('/todo')
+      .set('Authorization', `Bearer ${accessToken}`);
+
+    expect(getResponse.body.data.expireAt).not.toBe(
+      getResponse2.body.data.expireAt,
+    );
+  });
 });
