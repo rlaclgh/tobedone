@@ -56,6 +56,19 @@ describe('TodoController (e2e)', () => {
     expect(response.status).toBe(HttpStatus.OK);
     expect(response.body.code).toBe('SUCCESS');
     expect(response.body.message).toBe('할일을 불러왔습니다.');
-    expect(response.body.data.length).toBe(5);
+    expect(response.body.data.expireAt).toBeDefined();
+    expect(response.body.data.todos.length).toBe(5);
+  });
+
+  it('/todo (GET) can get cached todos', async () => {
+    const response = await request(app.getHttpServer())
+      .get('/todo')
+      .set('Authorization', `Bearer ${accessToken}`);
+
+    const response2 = await request(app.getHttpServer())
+      .get('/todo')
+      .set('Authorization', `Bearer ${accessToken}`);
+
+    expect(response.body.data.expireAt).toBe(response2.body.data.expireAt);
   });
 });

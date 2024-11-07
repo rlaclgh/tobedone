@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsString } from 'class-validator';
 
-export class GetTodosResponseDto {
+export class Todo {
   @ApiProperty({
     description: 'ID',
     type: 'string',
@@ -37,4 +37,17 @@ export class GetTodosResponseDto {
   })
   @IsString({ message: '생성 시간을 확인해주세요.' })
   createdAt: string;
+}
+
+export class GetTodosResponseDto {
+  @ApiProperty({
+    description: '만료일',
+    type: 'string',
+    nullable: false,
+    example: '2024-11-08T11:33:16.745Z',
+  })
+  @IsString({ message: '만료일 값을 확인해주세요.' })
+  expireAt: string;
+
+  todos: Todo[];
 }

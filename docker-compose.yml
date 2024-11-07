@@ -1,0 +1,12 @@
+services:
+  redis:
+    image: redis:latest
+    container_name: redis_container
+    ports:
+      - "6379:6379" # 호스트의 6379 포트를 컨테이너의 6379 포트에 매핑
+    volumes:
+      - redis_data:/data # 데이터 영속성을 위한 볼륨 설정
+    restart: always # 컨테이너가 중지되면 항상 재시작
+
+volumes:
+  redis_data:

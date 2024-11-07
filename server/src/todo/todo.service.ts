@@ -39,7 +39,7 @@ export class TodoService {
     const user = await this.queryBus.execute(new GetUserByIdQuery(userId));
 
     const todos = await this.queryBus.execute(
-      new GetTodosQuery(userId, user.noticeCount),
+      new GetTodosQuery(userId, user.noticeCount, user.noticeInterval),
     );
     return {
       code: 'SUCCESS',
