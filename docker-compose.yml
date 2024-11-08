@@ -8,5 +8,33 @@ services:
       - redis_data:/data # 데이터 영속성을 위한 볼륨 설정
     restart: always # 컨테이너가 중지되면 항상 재시작
 
+  postgres:
+    image: postgres:latest
+    restart: always
+    hostname: postgres
+    environment:
+      POSTGRES_DB: tobedone_dev
+      POSTGRES_USER: username
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5431:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+  server:
+    platform: linux/amd64
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    env_file:
+      - ./server/.env
+      - ./server/.env.production
+    ports:
+      - "5000:5000"
+    depends_on:
+      - postgres
+    restart: always
+
 volumes:
+  postgres-data:
   redis_data:

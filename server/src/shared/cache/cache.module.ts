@@ -5,7 +5,8 @@ import { Module } from '@nestjs/common';
   imports: [
     RedisModule.forRoot({
       type: 'single',
-      url: 'redis://localhost:6379',
+      url: process.env.RERIS_URL,
+      // url: 'redis://localhost:6379',
     }),
   ],
 })
