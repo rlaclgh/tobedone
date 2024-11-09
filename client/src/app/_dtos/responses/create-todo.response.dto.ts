@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-empty-object-type */
 export interface CreateTodoResponseDto {
-  id: string;
+    id: string;
 
-  title: string;
+    title: string;
 
-  link: string;
+    link: string;
 
-  createdAt: Date;
+    createdAt: Date;
 }

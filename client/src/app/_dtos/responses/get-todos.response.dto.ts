@@ -1,16 +1,16 @@
 /* eslint-disable @typescript-eslint/no-empty-object-type */
 export interface Todo {
-  id: string;
+    id: string;
 
-  title: string;
+    title: string;
 
-  link: string;
+    link: string;
 
-  createdAt: string;
+    createdAt: string;
 }
 
 export interface GetTodosResponseDto {
-  expireAt: string;
+    expireAt: string;
 
   todos: Todo[];
 }

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-empty-object-type */
 export interface UpdateNoticeRequestDto {
-  noticeInterval?: number;
+      noticeInterval?: number;
 
-  noticeCount?: number;
+      noticeCount?: number;
 }

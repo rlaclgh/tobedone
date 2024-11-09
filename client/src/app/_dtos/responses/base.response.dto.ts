@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-empty-object-type */
 export interface BaseResponseDto<T> {
-  code: "SUCCESS" | "FAIL";
+      code: 'SUCCESS' | 'FAIL';
 
-  message: string;
+      message: string;
 
-  data?: T;
+    data?: T;
 }

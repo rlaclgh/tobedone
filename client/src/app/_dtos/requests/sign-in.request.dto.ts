@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-empty-object-type */
 export interface SignInRequestDto {
-  email: string;
+      email: string;
 
-  password: string;
+    password: string;
 }

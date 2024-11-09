@@ -12,11 +12,11 @@ const responseDirectoryPath = path.join(
 );
 const requestOutputPath = path.join(
   __dirname,
-  "../client/src/types/dtos/requests"
+  "../client/src/app/_dtos/requests"
 );
 const responseOutputPath = path.join(
   __dirname,
-  "../client/src/types/dtos/responses"
+  "../client/src/app/_dtos/responses"
 );
 
 const convertDtoToInterface = async (
