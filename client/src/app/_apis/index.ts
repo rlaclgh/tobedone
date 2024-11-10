@@ -1,3 +1,5 @@
+import { getAuthToken } from "../_utils/cookie";
+
 const BASE_URL = "http://localhost:5000";
 
 interface ApiOptions {
@@ -16,10 +18,13 @@ const api = async <R, D>(
   options?: ApiOptions & { data?: D }
 ): Promise<R> => {
   const { method, data, headers, cache, next } = options || {};
+  const accessToken = getAuthToken();
+
   const fetchOptions: RequestInit = {
     method,
     headers: {
       "Content-Type": "application/json",
+      Authorization: "Bearer " + accessToken,
       ...headers, // 사용자 정의 헤더 병합
     },
   };

@@ -18,6 +18,7 @@ import { z } from "zod";
 import { signIn } from "../_apis/auth";
 import { useToast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
+import { setAuthToken } from "../_utils/cookie";
 
 const formSchema = z.object({
   email: z.string().min(2, {
@@ -48,6 +49,8 @@ const SignInForm = () => {
         description: "로그인이 완료되었습니다.",
       });
 
+      setAuthToken(result.data?.accessToken as string);
+
       router.replace("/");
     }
 
@@ -61,10 +64,7 @@ const SignInForm = () => {
   };
   return (
     <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-4 w-[100%]"
-      >
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 w-full">
         <FormField
           control={form.control}
           name="email"
@@ -93,14 +93,14 @@ const SignInForm = () => {
             </FormItem>
           )}
         />
-        <div className="w-[100%] flex items-center justify-center">
+        <div className="w-full flex items-center justify-center">
           <Button type="submit" className="min-w-24">
             로그인
           </Button>
         </div>
         <Button
           variant="link"
-          className="w-[100%] flex items-center justify-center"
+          className="w-full flex items-center justify-center"
         >
           <Link href="/sign-up">계정이 없으신가요? 간편가입하기</Link>
         </Button>

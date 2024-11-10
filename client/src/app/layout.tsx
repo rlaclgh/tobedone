@@ -15,14 +15,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <div className="w-[100%] h-[100%] m-0 flex justify-center align-middle fixed">
+        <div className="w-full h-full m-0 flex justify-center align-middle fixed">
           {/* left */}
           <div className="hidden lg:block lg:min-h-screen lg:w-[calc(80%-450px)] ">
             {/* <ProjectDescription /> */}
           </div>
-
           {/* center */}
-          <div className="overflow-x-hidden relative max-w-[450px] shadow min-h-[100%] max-h-screen flex-1">
+          <div className="overflow-x-hidden relative max-w-[450px] shadow min-h-full max-h-screen flex-1">
             {children}
           </div>
 

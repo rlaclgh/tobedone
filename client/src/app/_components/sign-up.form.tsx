@@ -63,10 +63,7 @@ const SignUpForm = () => {
   };
   return (
     <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-4 w-[100%]"
-      >
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 w-full">
         <FormField
           control={form.control}
           name="email"
@@ -95,14 +92,14 @@ const SignUpForm = () => {
             </FormItem>
           )}
         />
-        <div className="w-[100%] flex items-center justify-center">
+        <div className="w-full flex items-center justify-center">
           <Button type="submit" className="min-w-24">
             회원가입
           </Button>
         </div>
         <Button
           variant="link"
-          className="w-[100%] flex items-center justify-center"
+          className="w-full flex items-center justify-center"
         >
           <Link href="/sign-in">이미 계정이 있나요? 로그인하기</Link>
         </Button>
