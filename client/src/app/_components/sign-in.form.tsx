@@ -21,9 +21,12 @@ import { useRouter } from "next/navigation";
 import { setAuthToken } from "../_utils/cookie";
 
 const formSchema = z.object({
-  email: z.string().min(2, {
-    message: "올바른 이메일을 입력해주세요.",
-  }),
+  email: z
+    .string()
+    .min(2, {
+      message: "올바른 이메일을 입력해주세요.",
+    })
+    .email("올바른 이메일을 입력해주세요."),
   password: z.string().min(2, {
     message: "올바른 비밀번호를 입력해주세요.",
   }),
@@ -49,7 +52,7 @@ const SignInForm = () => {
         description: "로그인이 완료되었습니다.",
       });
 
-      setAuthToken(result.data?.accessToken as string);
+      await setAuthToken(result.data?.accessToken as string);
 
       router.replace("/");
     }

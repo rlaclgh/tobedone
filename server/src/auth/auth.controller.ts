@@ -1,5 +1,13 @@
-import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import {
+  Body,
+  Controller,
+  HttpCode,
+  HttpStatus,
+  Post,
+  Req,
+  UseGuards,
+} from '@nestjs/common';
+import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { AuthService } from './auth.service';
 import { SignUpRequestDto } from '../shared/dtos/requests/sign-up.request.dto';
 import { SwaggerResponse } from '../shared/decorators/swagger-response';
@@ -8,6 +16,7 @@ import { BaseResponseDto } from '../shared/dtos/responses/base.response.dto';
 import { SignInRequestDto } from '../shared/dtos/requests/sign-in.request.dto';
 import { SignInResponseDto } from '../shared/dtos/responses/sign-in.response.dto';
 import { EmptyResponseDto } from '../shared/dtos/responses/empty.response.dto';
+import { AuthGuard, RequestWithUserId } from '../shared/guards/auth.guard';
 
 @ApiTags('auth')
 @Controller('auth')
@@ -61,5 +70,27 @@ export class AuthController {
     @Body() signInRequestDto: SignInRequestDto,
   ): Promise<BaseResponseDto<SignInResponseDto>> {
     return this.authService.signIn(signInRequestDto);
+  }
+
+  @Post('/check')
+  @ApiOperation({
+    summary: '로그인 확인',
+    description: 'accessToken으로 로그인 확인 하는 API입니다.',
+  })
+  @SwaggerResponse(EmptyResponseDto, {
+    statusCode: HttpStatus.OK,
+    description: '정상적으로 로그인 된 경우',
+    message: '로그인을 확인했습니다.',
+  })
+  @HttpCode(HttpStatus.OK)
+  @ApiBearerAuth('authorization')
+  @UseGuards(AuthGuard)
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  check(@Req() req: RequestWithUserId): BaseResponseDto<EmptyResponseDto> {
+    return {
+      code: 'SUCCESS',
+      message: '로그인을 확인했습니다.',
+      data: null,
+    };
   }
 }

@@ -27,7 +27,10 @@ export class GetTodosHandler implements IQueryHandler<GetTodosQuery> {
 
     const todos: Todo[] = await this.prisma.$queryRaw`
       SELECT 
-        *
+        t.id, 
+        t.title, 
+        t.link,
+        t.created_at as "createdAt"
       FROM
         todo t
       WHERE

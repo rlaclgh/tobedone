@@ -28,3 +28,9 @@ export const signIn = (
     }
   );
 };
+
+export const checkAuth = (): Promise<BaseResponseDto<undefined>> => {
+  return api("/auth/check", {
+    method: "POST",
+  });
+};

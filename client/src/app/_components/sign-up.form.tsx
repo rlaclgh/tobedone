@@ -20,11 +20,14 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
-  email: z.string().min(2, {
-    message: "email must be at least 2 characters.",
-  }),
+  email: z
+    .string()
+    .min(2, {
+      message: "올바른 이메일을 입력해주세요.",
+    })
+    .email("올바른 이메일을 입력해주세요."),
   password: z.string().min(2, {
-    message: "password must be at least 2 characters.",
+    message: "올바른 비밀번호를 입력해주세요.",
   }),
 });
 

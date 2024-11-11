@@ -18,7 +18,7 @@ const api = async <R, D>(
   options?: ApiOptions & { data?: D }
 ): Promise<R> => {
   const { method, data, headers, cache, next } = options || {};
-  const accessToken = getAuthToken();
+  const accessToken = await getAuthToken();
 
   const fetchOptions: RequestInit = {
     method,

@@ -1,10 +1,13 @@
-import { setCookie, getCookie } from "cookies-next";
+"use server";
 
-export const setAuthToken = (token: string) => {
-  setCookie("accessToken", token);
+import { cookies } from "next/headers";
+
+export const setAuthToken = async (token: string) => {
+  await cookies().set("accessToken", token);
   return;
 };
 
 export const getAuthToken = () => {
-  return getCookie("accessToken");
+  "use server";
+  return cookies().get("accessToken")?.value;
 };
